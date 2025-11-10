@@ -14,12 +14,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.i18n import i18n_patterns
 from base.views import HomeView
 
-urlpatterns = [
-    path('i18n/', include('django.conf.urls.i18n')),
-    path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
-]
+# Non-i18n URLs
+urlpatterns = [path('admin/', admin.site.urls)]
+
+# English URLs (no prefix)
+urlpatterns += [path('', HomeView.as_view(), name='home')]
+
+# Chinese URLs (with /zh/ prefix)
+urlpatterns += i18n_patterns(
+    path('', HomeView.as_view(), name='home_zh'), prefix_default_language=False
+)

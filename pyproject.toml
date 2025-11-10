@@ -165,7 +165,7 @@ indent_size = 2
 indent_size = 2
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = ""
+DJANGO_SETTINGS_MODULE = "christmax.settings"
 pythonpath = [ "." ]
 #addopts = "--reuse-db --import-mode=importlib"
 addopts = "--capture=tee-sys"
