@@ -54,11 +54,11 @@ multiplayer features.
 
 ```
 django-wordle/
-├── christmax/                  # Django project root
+├── christmax/                 # Django project root
 │   ├── christmax/             # Project settings
 │   │   ├── settings.py        # Configuration
 │   │   ├── urls.py            # URL routing
-│   │   └── wsgi.py/asgi.py   # WSGI/ASGI applications
+│   │   └── wsgi.py/asgi.py    # WSGI/ASGI applications
 │   ├── base/                  # Base template hierarchy
 │   │   ├── templates/         # Shared templates
 │   │   │   ├── base.html      # Base template
@@ -69,13 +69,13 @@ django-wordle/
 │   │   │   └── js/            # JavaScript
 │   │   ├── locale/            # Translation files
 │   │   │   ├── en/            # English translations
-│   │   │   └── zh_Hant/       # Traditional Chinese
+│   │   │   └── zh/            # Traditional Chinese
 │   │   ├── tests/             # i18n tests
 │   │   └── views.py           # Base views
 │   └── manage.py              # Django CLI
-├── pyproject.toml            # Poetry dependencies
-├── .gitignore                # Git ignore rules
-└── README.md                 # This file
+├── pyproject.toml             # Poetry dependencies
+├── .gitignore                 # Git ignore rules
+└── README.md                  # This file
 ```
 
 ## Features by Phase
