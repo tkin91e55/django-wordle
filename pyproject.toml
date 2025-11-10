@@ -134,7 +134,7 @@ ignore = [
 ]
 
 [tool.ruff.format]
-quote-style = "double"
+quote-style = "single"
 indent-style = "space"
 skip-magic-trailing-comma = true # disable make list linewise
 line-ending = "auto"
