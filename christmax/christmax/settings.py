@@ -126,6 +126,9 @@ STATICFILES_DIRS = [BASE_DIR / 'base' / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Custom User Model
+AUTH_USER_MODEL = 'users.User'
+
 # Debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
 
@@ -144,8 +147,5 @@ SOCIALACCOUNT_PROVIDERS = {
     #         'user:email',
     #     ],
     # },
-    'google': {
-        'SCOPE': [ 'profile', 'email', ],
-        'AUTH_PARAMS': { 'access_type': 'online', },
-    }
+    'google': {'SCOPE': ['profile', 'email'], 'AUTH_PARAMS': {'access_type': 'online'}}
 }
