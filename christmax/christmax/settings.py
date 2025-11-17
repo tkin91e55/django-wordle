@@ -73,8 +73,8 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
+    'users.backends.AdminUsernameBackend',
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
@@ -132,7 +132,9 @@ AUTH_USER_MODEL = 'users.User'
 # Debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
 
-# Django allauth
+# ============================================================================
+# Django Allauth - Email-based Authentication
+# ============================================================================
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/email/'
 
@@ -149,3 +151,26 @@ SOCIALACCOUNT_PROVIDERS = {
     # },
     'google': {'SCOPE': ['profile', 'email'], 'AUTH_PARAMS': {'access_type': 'online'}}
 }
+# NOTE: Admin still uses username login (django.contrib.auth.backends.ModelBackend)
+# Regular users use email login (allauth.account.auth_backends.AuthenticationBackend)
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'      # Regular users login with email
+ACCOUNT_EMAIL_REQUIRED = True                 # Email is mandatory
+ACCOUNT_USERNAME_REQUIRED = False             # Username auto-generated from email
+ACCOUNT_UNIQUE_EMAIL = True                   # One email = one account
+SOCIALACCOUNT_AUTO_SIGNUP = True              # Auto-create account from social auth
+ACCOUNT_EMAIL_VERIFICATION = 'optional'       # Email verification encouraged but not mandatory
+
+# Email Backend
+if DEBUG:
+    # Development: Print emails to console
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    # Production: Use SMTP (configure these in production .env)
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # EMAIL_HOST = 'smtp.gmail.com'
+    # EMAIL_PORT = 587
+    # EMAIL_USE_TLS = True
+    # EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    # EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+    # DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@example.com')

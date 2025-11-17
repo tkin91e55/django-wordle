@@ -1,31 +1,55 @@
-# though different parts of cutomization should be put in different files
-# make things start here first
-
-import json
+import re
 import logging
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 
-# Set up logger
 logger = logging.getLogger(__name__)
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
+def generate_username_from_email(user):
+    from allauth.account.utils import user_username, user_email
+
+    username = user_username(user)
+
+    if not username:
+        email = user_email(user)
+        if email:
+            local_part = email.split('@')[0]
+            base_username = re.sub(r'[^\w]', '_', local_part)[:150]
+
+            username = base_username
+            counter = 1
+            while User.objects.filter(username=username).exclude(pk=user.pk).exists():
+                username = f'{base_username}_{counter}'
+                counter += 1
+
+            user_username(user, username)
 
 class MyAccountAdapter(DefaultAccountAdapter):
     """Adapter for regular username/password authentication."""
 
-    # this is overriding, better lookup the super class implmentation first
     def get_login_redirect_url(self, request):
         """Override redirect after regular login."""
         return '/accounts/email/'
+
+    def populate_username(self, request, user):
+        generate_username_from_email(user)
 
 
 class MySocialAccountAdapter(DefaultSocialAccountAdapter):
 
     def pre_social_login(self, request, sociallogin):
+        """
+        Link social account to existing user with same email.
+        Block signup if email is missing from social provider.
+        """
         provider = sociallogin.account.provider
 
-        # Log to Django logger as well
-        email = sociallogin.email_addresses[0].email if sociallogin.email_addresses else 'None'
+        # Extract email
+        email = sociallogin.email_addresses[0].email if sociallogin.email_addresses else None
+
+        # Log social login attempt
         logger.info(
             f'Social login callback from {provider}: '
             f'uid={sociallogin.account.uid}, '
@@ -33,6 +57,29 @@ class MySocialAccountAdapter(DefaultSocialAccountAdapter):
             f'is_existing={sociallogin.is_existing}'
         )
 
+        if not email:
+            logger.error(f'Social login from {provider} missing email - blocking signup')
+            from django.contrib import messages
+            from allauth.exceptions import ImmediateHttpResponse
+            from django.shortcuts import redirect
+
+            messages.error(
+                request,
+                f'Your {provider.title()} account must provide an email address to sign up. '
+                f'Please check your {provider.title()} account settings.'
+            )
+            raise ImmediateHttpResponse(redirect('/accounts/login/'))
+
+        if not sociallogin.is_existing and request.user.is_anonymous:
+            try:
+                user = User.objects.get(email=email)
+
+                sociallogin.connect(request, user)
+                logger.info(f'Linked {provider} account to existing user: {email}')
+            except User.DoesNotExist:
+                logger.info(f'New user signup from {provider}: {email}')
+            except User.MultipleObjectsReturned:
+                logger.error(f'Multiple users found with email: {email}')
         return super().pre_social_login(request, sociallogin)
 
     def populate_user(self, request, sociallogin, data):
@@ -43,6 +90,9 @@ class MySocialAccountAdapter(DefaultSocialAccountAdapter):
             user.last_name = data.get('family_name', '')
 
         return user
+
+    def populate_username(self, request, user):
+        generate_username_from_email(user)
 
     def save_user(self, request, sociallogin, form=None):
         user = super().save_user(request, sociallogin, form)
