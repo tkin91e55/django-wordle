@@ -1,0 +1,695 @@
+# Chinese (Traditional) translations for 天天好學 - FirstToBuzz
+# This file is distributed under the same license as the PACKAGE package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-18 06:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Landing Page Translations
+#: base/templates/_dev/home.html:11
+msgid "AI Took Our Jobs? Let's Learn Django Anyway!"
+msgstr "AI 搶走我們的工作？還是學 Django 吧！"
+
+#: base/templates/_dev/home.html:12
+msgid "100+ Practice Questions • Instant Results • Track Progress"
+msgstr "100+ 練習題目 • 即時結果 • 追蹤進度"
+
+#: base/templates/_dev/home.html:13
+msgid "Because AI can't practice for you (yet)"
+msgstr "因為 AI 還不能替你練習（暫時）。"
+
+#: base/templates/_dev/home.html:16
+msgid "Try Sample Questions"
+msgstr "試做範例題目"
+
+#: base/templates/_dev/home.html:19
+msgid "View Pricing"
+msgstr "查看價格"
+
+#: base/templates/_dev/home.html:30
+msgid "Real Stories from Real Learners"
+msgstr "真實學員的真實故事"
+
+#: base/templates/_dev/home.html:53
+msgid ""
+"My Django exam is next week and I was panicking! Found 100+ practice "
+"questions here that exactly match my syllabus. Now I feel confident to pass!"
+msgstr ""
+"我下週就要考 Django 了，本來很慌張！在這裡找到 100+ 道練習題，完全符合我的課"
+"程大綱。現在我有信心通過考試了！"
+
+#: base/templates/_dev/home.html:56
+msgid "Chan Tai Man"
+msgstr "陳大文"
+
+#: base/templates/_dev/home.html:56
+msgid "CS Student, HKU"
+msgstr "香港大學電腦科學系學生"
+
+#: base/templates/_dev/home.html:72
+msgid ""
+"Preparing for my first Python developer interview. The Django questions here "
+"are exactly what interviewers ask. Already feeling more prepared!"
+msgstr ""
+"正在準備我的第一次 Python 開發人員面試。這裡的 Django 問題正是面試官會問的。"
+"已經感覺更有準備了！"
+
+#: base/templates/_dev/home.html:75
+msgid "Lisa Wong"
+msgstr "黃麗莎"
+
+#: base/templates/_dev/home.html:75
+msgid "Junior Developer"
+msgstr "初級開發人員"
+
+#: base/templates/_dev/home.html:91
+msgid ""
+"Finally found reliable Python quiz questions for my university students! The "
+"categorization helps me assign relevant practice for different topics."
+msgstr ""
+"終於找到可靠的 Python 測驗題目給我的大學生！分類功能幫助我為不同主題指派相關"
+"練習。"
+
+#: base/templates/_dev/home.html:94
+msgid "Mr. Lee"
+msgstr "李老師"
+
+#: base/templates/_dev/home.html:94
+msgid "Computer Science Teacher, CUHK"
+msgstr "香港中文大學電腦科學教師"
+
+#: base/templates/_dev/home.html:110
+msgid ""
+"As a secondary school ICT teacher, I needed engaging Python resources for my "
+"F.4-F.6 students. This platform has age-appropriate questions that make "
+"programming fun!"
+msgstr ""
+"作為一名中學 ICT 教師，我需要為中四至中六學生準備有趣的 Python 教材。這個平台"
+"有適合年齡的題目，讓編程變得有趣！"
+
+#: base/templates/_dev/home.html:113
+msgid "Ms. Chen"
+msgstr "陳老師"
+
+#: base/templates/_dev/home.html:113
+msgid "ICT Teacher, Secondary School"
+msgstr "中學 ICT 教師"
+
+#: base/templates/_dev/home.html:129
+msgid ""
+"I need to launch my business online fast! Learning Django here helped me "
+"build a production-ready web app in weeks instead of months. Now my business "
+"has a professional online presence!"
+msgstr ""
+"我需要快速在網上推出我的業務！在這裡學習 Django 幫助我在幾週內（而不是幾個"
+"月）建立了一個可投入生產的網頁應用程式。現在我的業務有了專業的線上形象！"
+
+#: base/templates/_dev/home.html:132
+msgid "James Lau"
+msgstr "劉家明"
+
+#: base/templates/_dev/home.html:132
+msgid "Small Business Owner"
+msgstr "小型企業老闆"
+
+#: base/templates/_dev/home.html:148
+msgid ""
+"After losing everything, I needed to rebuild my life. Learning Django here "
+"gave me the skills to start freelancing. Now I have my first clients and a "
+"path forward!"
+msgstr ""
+"失去一切後，我需要重建我的人生。在這裡學習 Django 讓我獲得了開始接案的技能。"
+"現在我有了第一批客戶和前進的道路！"
+
+#: base/templates/_dev/home.html:151
+msgid "Michael Chan"
+msgstr "陳志強"
+
+#: base/templates/_dev/home.html:151
+msgid "Aspiring Freelance Developer"
+msgstr "有志成為自由工作者的開發人員"
+
+#: base/templates/_dev/home.html:163
+msgid "Previous"
+msgstr "上一個"
+
+#: base/templates/_dev/home.html:167
+msgid "Next"
+msgstr "下一個"
+
+#: base/templates/_dev/home.html:176
+msgid "Why Choose 天天好學?"
+msgstr "為什麼選擇天天好學？"
+
+#: base/templates/_dev/home.html:182
+msgid "100+ Questions Bank"
+msgstr "100+ 題庫"
+
+#: base/templates/_dev/home.html:183
+msgid ""
+"Comprehensive collection of Django and Python questions covering all topics "
+"from basics to advanced concepts."
+msgstr "全面收錄 Django 和 Python 題目，涵蓋從基礎到進階的所有主題。"
+
+#: base/templates/_dev/home.html:191
+msgid "Smart Categories"
+msgstr "智能分類"
+
+#: base/templates/_dev/home.html:192
+msgid ""
+"Well-organized topics: Django Models, Views, Templates, Python Basics, OOP, "
+"and more."
+msgstr "精心組織的主題：Django Models、Views、Templates、Python 基礎、OOP 等。"
+
+#: base/templates/_dev/home.html:200
+msgid "Instant Feedback"
+msgstr "即時反饋"
+
+#: base/templates/_dev/home.html:201
+msgid ""
+"Get immediate results with detailed explanations. Learn from your mistakes "
+"right away."
+msgstr "立即獲得詳細解釋的結果。馬上從錯誤中學習。"
+
+#: base/templates/_dev/home.html:209
+msgid "Progress Tracking"
+msgstr "進度追蹤"
+
+#: base/templates/_dev/home.html:210
+msgid ""
+"Monitor your improvement with detailed analytics and performance reports."
+msgstr "通過詳細的分析和成績報告監控你的進步。"
+
+#: base/templates/_dev/home.html:218
+msgid "Leaderboards"
+msgstr "排行榜"
+
+#: base/templates/_dev/home.html:219
+msgid "Compete with other learners and climb the rankings to win prizes."
+msgstr "與其他學習者競爭，攀登排行榜贏取獎品。"
+
+#: base/templates/_dev/home.html:227
+msgid "Gamified Learning"
+msgstr "遊戲化學習"
+
+#: base/templates/_dev/home.html:228
+msgid "Earn badges, unlock achievements, and make learning fun and engaging."
+msgstr "賺取徽章，解鎖成就，讓學習變得有趣又吸引人。"
+
+#: base/templates/_dev/home.html:239
+msgid "Try a Sample Question"
+msgstr "試做範例題目"
+
+#: base/templates/_dev/home.html:240
+msgid "Experience the quality of our quiz questions"
+msgstr "體驗我們測驗題目的品質"
+
+#: base/templates/_dev/home.html:251
+msgid "What does the @login_required decorator do in Django?"
+msgstr "Django 中的 @login_required 裝飾器有什麼作用？"
+
+#: base/templates/_dev/home.html:255
+msgid "It encrypts user passwords before saving to database"
+msgstr "在保存到資料庫之前加密用戶密碼"
+
+#: base/templates/_dev/home.html:261
+msgid "It restricts access to a view to authenticated users only"
+msgstr "限制只有經過身份驗證的用戶才能訪問視圖"
+
+#: base/templates/_dev/home.html:267
+msgid "It creates a login form automatically"
+msgstr "自動創建登入表單"
+
+#: base/templates/_dev/home.html:273
+msgid "It logs all user activities"
+msgstr "記錄所有用戶活動"
+
+#: base/templates/_dev/home.html:276 base/templates/_dev/home.html:313
+msgid "Check Answer"
+msgstr "檢查答案"
+
+#: base/templates/_dev/home.html:288
+msgid "Which of the following is NOT a valid Python data type?"
+msgstr "以下哪一個不是有效的 Python 資料型別？"
+
+#: base/templates/_dev/home.html:292
+msgid "list"
+msgstr "list（串列）"
+
+#: base/templates/_dev/home.html:298
+msgid "tuple"
+msgstr "tuple（元組）"
+
+#: base/templates/_dev/home.html:304
+msgid "array"
+msgstr "array（陣列）"
+
+#: base/templates/_dev/home.html:310
+msgid "dictionary"
+msgstr "dictionary（字典）"
+
+#: base/templates/_dev/home.html:319
+msgid "Want access to 100+ more questions?"
+msgstr "想要存取 100+ 更多題目嗎？"
+
+#: base/templates/_dev/home.html:320
+msgid "View Membership Plans"
+msgstr "查看會員方案"
+
+#: base/templates/_dev/home.html:330
+msgid "Win the Cup & Earn Prizes!"
+msgstr "贏得獎盃並賺取獎品！"
+
+#: base/templates/_dev/home.html:331
+msgid "Compete with other learners and win exclusive rewards"
+msgstr "與其他學習者競爭並贏得獨家獎勵"
+
+#: base/templates/_dev/home.html:338
+msgid "Monthly Champion"
+msgstr "月度冠軍"
+
+#: base/templates/_dev/home.html:339
+msgid "Top scorer wins exclusive prizes and recognition"
+msgstr "最高分者贏得獨家獎品和認可"
+
+#: base/templates/_dev/home.html:347
+msgid "Achievement Badges"
+msgstr "成就徽章"
+
+#: base/templates/_dev/home.html:348
+msgid "Unlock special badges for milestones and perfect scores"
+msgstr "解鎖里程碑和滿分的特別徽章"
+
+#: base/templates/_dev/home.html:356
+msgid "Premium Features"
+msgstr "高級功能"
+
+#: base/templates/_dev/home.html:357
+msgid "Winners get free premium access and exclusive content"
+msgstr "獲勝者獲得免費高級存取權和獨家內容"
+
+#: base/templates/_dev/home.html:368
+msgid "Simple, Transparent Pricing"
+msgstr "簡單透明的價格"
+
+#: base/templates/_dev/home.html:369
+msgid "Choose the plan that's right for you"
+msgstr "選擇適合你的方案"
+
+#: base/templates/_dev/home.html:376
+msgid "Free"
+msgstr "免費"
+
+#: base/templates/_dev/home.html:378
+msgid "Perfect to get started"
+msgstr "完美入門"
+
+#: base/templates/_dev/home.html:380
+msgid "5 quiz attempts per day"
+msgstr "每天 5 次測驗機會"
+
+#: base/templates/_dev/home.html:381
+msgid "Basic categories access"
+msgstr "基本分類存取"
+
+#: base/templates/_dev/home.html:382
+msgid "View leaderboard"
+msgstr "查看排行榜"
+
+#: base/templates/_dev/home.html:383
+msgid "No progress tracking"
+msgstr "無進度追蹤"
+
+#: base/templates/_dev/home.html:384
+msgid "No competition entry"
+msgstr "無法參加競賽"
+
+#: base/templates/_dev/home.html:386
+msgid "Current Plan"
+msgstr "當前方案"
+
+#: base/templates/_dev/home.html:395
+msgid "MOST POPULAR"
+msgstr "最受歡迎"
+
+#: base/templates/_dev/home.html:398
+msgid "Premium"
+msgstr "高級會員"
+
+#: base/templates/_dev/home.html:401
+msgid "month"
+msgstr "月"
+
+#: base/templates/_dev/home.html:403
+msgid "For serious learners"
+msgstr "認真學習者適用"
+
+#: base/templates/_dev/home.html:405
+msgid "Unlimited quiz attempts"
+msgstr "無限測驗機會"
+
+#: base/templates/_dev/home.html:406
+msgid "All 100+ questions"
+msgstr "全部 100+ 題目"
+
+#: base/templates/_dev/home.html:407
+msgid "Enter competitions"
+msgstr "參加競賽"
+
+#: base/templates/_dev/home.html:408
+msgid "Progress tracking"
+msgstr "進度追蹤"
+
+#: base/templates/_dev/home.html:409
+msgid "Detailed analytics"
+msgstr "詳細分析"
+
+#: base/templates/_dev/home.html:410
+msgid "Certificate of completion"
+msgstr "完成證書"
+
+#: base/templates/_dev/home.html:411
+msgid "Ad-free experience"
+msgstr "無廣告體驗"
+
+#: base/templates/_dev/home.html:413
+msgid "Upgrade Now"
+msgstr "立即升級"
+
+#: base/templates/_dev/home.html:425
+msgid "7-day money-back guarantee"
+msgstr "7 天退款保證"
+
+#: base/templates/_dev/home.html:425
+msgid "Cancel anytime"
+msgstr "隨時取消"
+
+#: base/templates/_dev/home.html:425
+msgid "No hidden fees"
+msgstr "無隱藏費用"
+
+#: base/templates/_dev/home.html:436
+msgid "Ready to Ace Your Exam?"
+msgstr "準備好輕鬆通過考試了嗎？"
+
+#: base/templates/_dev/home.html:437
+msgid "Join 500+ students who are already practicing with us"
+msgstr "加入 500+ 位已經在與我們一起練習的學生"
+
+#: base/templates/_dev/home.html:442
+msgid "Register Free Account"
+msgstr "註冊免費帳戶"
+
+#: base/templates/_dev/home.html:444
+msgid "No credit card required • Start practicing immediately"
+msgstr "無需信用卡 • 立即開始練習"
+
+#: base/templates/_dev/home.html:458
+msgid "Please select an answer first"
+msgstr "請先選擇一個答案"
+
+#: base/templates/_dev/home.html:464
+msgid "Correct!"
+msgstr "正確！"
+
+#: base/templates/_dev/home.html:464
+msgid "Great job! This is the right answer."
+msgstr "做得好！這是正確答案。"
+
+#: base/templates/_dev/home.html:466
+msgid "Incorrect."
+msgstr "不正確。"
+
+#: base/templates/_dev/home.html:466
+msgid "Try again or sign up to see detailed explanations."
+msgstr "再試一次或註冊以查看詳細解釋。"
+
+#: base/templates/includes/footer.html:6
+msgid "All rights reserved."
+msgstr "版權所有。"
+
+#: base/templates/includes/navbar.html:13
+msgid "Home"
+msgstr "首頁"
+
+#: base/templates/includes/navbar.html:30
+msgid "Settings"
+msgstr "設定"
+
+#: base/templates/includes/navbar.html:34
+msgid "Sign Out"
+msgstr "登出"
+
+#: base/templates/includes/navbar.html:40 users/templates/account/login.html:5
+#: users/templates/account/login.html:9 users/templates/account/login.html:31
+msgid "Sign In"
+msgstr "登入"
+
+#: base/templates/includes/navbar.html:45
+msgid "Sign Up"
+msgstr "註冊"
+
+#: base/templates/includes/navbar.html:62
+msgid "Language"
+msgstr "語言"
+
+#: christmax/settings.py:107
+msgid "English"
+msgstr "英文"
+
+#: christmax/settings.py:107
+msgid "Traditional Chinese"
+msgstr "繁體中文"
+
+#: users/admin.py:13
+msgid "Profile"
+msgstr "個人資料"
+
+#: users/admin.py:39
+msgid "Personal info"
+msgstr "個人資訊"
+
+#: users/admin.py:41
+msgid "Permissions"
+msgstr "權限"
+
+#: users/admin.py:44
+msgid "Important dates"
+msgstr "重要日期"
+
+#: users/admin.py:63
+msgid "User"
+msgstr "用戶"
+
+#: users/admin.py:64
+msgid "Profile Info"
+msgstr "個人資料資訊"
+
+#: users/admin.py:65
+msgid "Metadata"
+msgstr "元資料"
+
+#: users/models.py:18
+msgid "email address"
+msgstr "電子郵件地址"
+
+#: users/models.py:20
+msgid "A user with that email already exists."
+msgstr "該電子郵件地址已被使用。"
+
+#: users/models.py:25
+msgid "username"
+msgstr "用戶名稱"
+
+#: users/models.py:30
+msgid "Optional. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "可選。150 個字元或更少。僅限字母、數字和 @/./+/-/_ 符號。"
+
+#: users/models.py:38 users/models.py:71
+msgid "user"
+msgstr "用戶"
+
+#: users/models.py:39
+msgid "users"
+msgstr "用戶"
+
+#: users/models.py:75
+msgid "player level"
+msgstr "玩家等級"
+
+#: users/models.py:75
+msgid "Game progression level"
+msgstr "遊戲進度等級"
+
+#: users/models.py:79
+msgid "display name"
+msgstr "顯示名稱"
+
+#: users/models.py:79
+msgid "Name shown to other players"
+msgstr "向其他玩家顯示的名稱"
+
+#: users/models.py:82
+msgid "experience points"
+msgstr "經驗值"
+
+#: users/models.py:84
+msgid "created at"
+msgstr "建立時間"
+
+#: users/models.py:85
+msgid "updated at"
+msgstr "更新時間"
+
+#: users/models.py:88
+msgid "profile"
+msgstr "個人資料"
+
+#: users/models.py:89
+msgid "profiles"
+msgstr "個人資料"
+
+#: users/templates/account/login.html:19
+#, python-format
+msgid ""
+"If you have not created an account yet, then please %(link)ssign "
+"up%(end_link)s first."
+msgstr "如果您還沒有建立帳戶，請先%(link)s註冊%(end_link)s。"
+
+#: users/templates/account/login.html:42
+msgid "Sign in with a passkey"
+msgstr "使用通行密鑰登入"
+
+#: users/templates/account/login.html:47
+msgid "Send me a sign-in code"
+msgstr "傳送登入驗證碼給我"
+
+#: users/templates/account/settings.html:4
+#: users/templates/account/settings.html:8
+msgid "Account Settings"
+msgstr "帳戶設定"
+
+#: users/templates/account/settings.html:17
+msgid "Account Information"
+msgstr "帳戶資訊"
+
+#: users/templates/account/settings.html:20
+msgid "Username:"
+msgstr "用戶名稱："
+
+#: users/templates/account/settings.html:21
+msgid "Member since:"
+msgstr "註冊日期："
+
+#: users/templates/account/settings.html:32
+msgid "Email Address"
+msgstr "電子郵件地址"
+
+#: users/templates/account/settings.html:37
+msgid "Verified"
+msgstr "已驗證"
+
+#: users/templates/account/settings.html:41
+msgid "Not Verified"
+msgstr "未驗證"
+
+#: users/templates/account/settings.html:46
+msgid "Manage Email"
+msgstr "管理電子郵件"
+
+#: users/templates/account/settings.html:58
+msgid "Password"
+msgstr "密碼"
+
+#: users/templates/account/settings.html:62
+msgid "Password is set"
+msgstr "已設定密碼"
+
+#: users/templates/account/settings.html:64
+msgid "No password set (using social login)"
+msgstr "未設定密碼（使用社交帳號登入）"
+
+#: users/templates/account/settings.html:70
+msgid "Change Password"
+msgstr "變更密碼"
+
+#: users/templates/account/settings.html:74
+msgid "Set Password"
+msgstr "設定密碼"
+
+#: users/templates/account/settings.html:87
+msgid "Connected Accounts"
+msgstr "已連結的帳戶"
+
+#: users/templates/account/settings.html:91
+#, python-format
+msgid ""
+"\n"
+"                            %(counter)s account connected\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(counter)s accounts connected\n"
+"                        "
+msgstr[0] ""
+"\n"
+"                            已連結 %(counter)s 個帳戶\n"
+"                        "
+msgstr[1] ""
+"\n"
+"                            已連結 %(counter)s 個帳戶\n"
+"                        "
+
+#: users/templates/account/settings.html:97
+msgid "No accounts connected"
+msgstr "未連結任何帳戶"
+
+#: users/templates/account/settings.html:102
+msgid "Manage Connections"
+msgstr "管理連結"
+
+#: users/templates/allauth/layouts/settings.html:9
+msgid "Overview"
+msgstr "總覽"
+
+#~ msgid "Wordle"
+#~ msgstr "單詞猜謎"
+
+#~ msgid "Quiz"
+#~ msgstr "知識問答"
+
+#~ msgid "Leaderboard"
+#~ msgstr "排行榜"
+
+#~ msgid "Logout"
+#~ msgstr "登出"
+
+#~ msgid "Login"
+#~ msgstr "登入"
+
+#~ msgid "Register"
+#~ msgstr "註冊"
+
+#~ msgid "Educational gaming platform for learning programming"
+#~ msgstr "學習程式設計的教育遊戲平台"
+
+#~ msgid "Quick Links"
+#~ msgstr "快速連結"
+
+#~ msgid "Daily Wordle"
+#~ msgstr "每日單詞猜謎"
+
+#~ msgid "Quiz Categories"
+#~ msgstr "問答分類"
+
+#~ msgid "Welcome to learn new things"
+#~ msgstr "歡迎來探索新知"

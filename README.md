@@ -168,13 +168,27 @@ coverage report     # View coverage report
 ```
 
 ### Internationalization
-```bash
-# Extract translatable strings
-python manage.py makemessages -l zh
 
-# Compile translation files
-python manage.py compilemessages
+The project uses a **modular translation system** to separate concerns and simplify maintenance. See [`docs/translation-system.md`](docs/translation-system.md) for detailed documentation.
+
+```bash
+# Quick Start (from christmax/ directory)
+make compile         # Merge & compile translations
+make update          # Extract new strings to app.po
+make stats           # Show translation statistics
+
+# Or use management command directly
+python manage.py compile_translations --locale zh
 ```
+
+**Translation Files** (`christmax/base/locale/zh/LC_MESSAGES/`):
+- `manual.po` - Manual overrides (highest priority)
+- `app.po` - Custom project strings
+- `allauth.po` - Django-allauth translations
+- `django-core.po` - Django core translations
+- `djangojs.po` - JavaScript translations (separate domain)
+
+Files are automatically merged in priority order (manual → app → allauth → django-core) and compiled to `django.mo` and `djangojs.mo`.
 
 ### Pre-commit Hooks
 ```bash

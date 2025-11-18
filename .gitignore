@@ -55,8 +55,18 @@ coverage.xml
 cover/
 
 # Translations
-*.mo
+# Auto-generated translation files (compiled from modular source files)
+**/locale/*/LC_MESSAGES/django.po
+**/locale/*/LC_MESSAGES/django.mo
+**/locale/*/LC_MESSAGES/djangojs.mo
 *.pot
+
+# Keep source translation files (tracked in git):
+# - app.po: Custom project translations
+# - allauth.po: Django-allauth translations
+# - django-core.po: Django core translations
+# - manual.po: Manual overrides and fixes
+# - djangojs.po: JavaScript translations
 
 # Django stuff:
 *.log

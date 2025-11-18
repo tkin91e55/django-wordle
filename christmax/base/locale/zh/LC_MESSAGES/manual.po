@@ -1,0 +1,30 @@
+# Manual translation overrides for django-wordle
+# This file contains manual fixes and overrides that take priority over other translations
+msgid ""
+msgstr ""
+"Project-Id-Version: django-wordle 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-18 00:00+0000\n"
+"PO-Revision-Date: 2025-11-18 15:40+0000\n"
+"Last-Translator: Manual Translation Team\n"
+"Language-Team: Traditional Chinese\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# Password validation help text (with curly apostrophes U+2019 for Django compatibility)
+# These strings use RIGHT SINGLE QUOTATION MARK (') not APOSTROPHE (')
+msgid "Your password can’t be too similar to your other personal information."
+msgstr "您的密碼不能與您的其他個人資訊太相似。"
+
+msgid "Your password must contain at least %(min_length)d character."
+msgid_plural "Your password must contain at least %(min_length)d characters."
+msgstr[0] "您的密碼必須包含至少 %(min_length)d 個字元。"
+
+msgid "Your password can’t be a commonly used password."
+msgstr "您的密碼不能是常用密碼。"
+
+msgid "Your password can’t be entirely numeric."
+msgstr "您的密碼不能完全是數字。"
