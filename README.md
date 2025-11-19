@@ -19,7 +19,7 @@ multiplayer features.
 - ✅ Internationalization (i18n) configured
 - ✅ Base template system established
 - ✅ Development environment set up
-- 🚧 User authentication system (pending)
+- ✅ User authentication system (pending)
 - 🚧 Wordle game logic (pending)
 - 🚧 Quiz system (pending)
 
