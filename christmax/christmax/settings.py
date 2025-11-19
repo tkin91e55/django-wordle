@@ -28,12 +28,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third-party
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    # General, not app-specific
     'base',
-    'users',
+
+    # Application
+    'users.apps.UsersConfig',
+    'quiz.apps.QuizConfig',
 ]
 
 if DEBUG:

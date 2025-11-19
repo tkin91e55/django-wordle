@@ -1,0 +1,80 @@
+erDiagram
+    %% Django Quiz App - Entity Relationship Diagram
+    %% Generated: 2025-11-20
+    
+    User ||--o{ GameSession : plays
+    User ||--|| UserStatistics : has_stats
+    User ||--o{ UserTrophy : unlocks
+    
+    Category ||--o{ Question : contains
+    
+    Question ||--o{ GameSession : used_in
+    
+    GameSession ||--o{ Attempt : has
+    
+    Trophy ||--o{ UserTrophy : awarded_to
+    
+    Category {
+        bigint id PK
+        varchar name UK "unique"
+        text description
+        varchar icon_class "Bootstrap-icon"
+        int order
+    }
+    
+    Question {
+        bigint id PK
+        bigint category_id FK
+        varchar difficulty "enum"
+        json question_text "bilingual"
+        text code_snippet
+        varchar answer
+        json hint_text "bilingual"
+        json explanation "bilingual"
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+    
+    GameSession {
+        bigint id PK
+        bigint user_id FK
+        bigint question_id FK
+        datetime started_at
+        datetime end_at "deadline"
+        datetime completed_at "nullable"
+        int score
+    }
+    
+    Attempt {
+        bigint id PK
+        bigint game_session_id FK
+        int attempt_number "1-6"
+        varchar user_answer
+        boolean is_correct
+        datetime attempted_at
+    }
+    
+    UserStatistics {
+        bigint id PK
+        bigint user_id FK "OneToOne"
+        int player_level
+        int experience_points
+        datetime created_at
+        datetime updated_at
+    }
+    
+    Trophy {
+        bigint id PK
+        varchar code UK "unique"
+        varchar requirement_type "enum"
+        varchar name
+        text description
+    }
+    
+    UserTrophy {
+        bigint id PK
+        bigint user_id FK
+        bigint trophy_id FK
+        datetime unlocked_at
+    }

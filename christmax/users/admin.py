@@ -13,7 +13,7 @@ class ProfileInline(admin.StackedInline):
     verbose_name_plural = _('Profile')
     fk_name = 'user'
 
-    fields = ('display_name', 'player_level', 'experience_points', 'created_at', 'updated_at')
+    fields = ('display_name', 'created_at', 'updated_at')
     readonly_fields = ('created_at', 'updated_at')
 
 
@@ -52,16 +52,19 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    """Admin interface for Profile - standalone view."""
+    """Admin interface for Profile - standalone view.
 
-    list_display = ('user', 'display_name', 'player_level', 'experience_points', 'created_at')
-    list_filter = ('player_level', 'created_at')
+    Note: player_level and experience_points moved to quiz.UserStatistics
+    """
+
+    list_display = ('user', 'display_name', 'created_at')
+    list_filter = ('created_at',)
     search_fields = ('user__username', 'user__email', 'display_name')
     readonly_fields = ('created_at', 'updated_at')
 
     fieldsets = (
         (_('User'), {'fields': ('user',)}),
-        (_('Profile Info'), {'fields': ('display_name', 'player_level', 'experience_points')}),
+        (_('Profile Info'), {'fields': ('display_name',)}),
         (_('Metadata'), {'fields': ('created_at', 'updated_at')}),
     )
 

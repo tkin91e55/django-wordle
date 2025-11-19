@@ -27,7 +27,7 @@ from base.views import HomeView
 from users.views import SettingsView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls)
     # Django-allauth URLs (outside i18n_patterns to avoid duplicate registration)
 ]
 
@@ -37,12 +37,14 @@ urlpatterns += i18n_patterns(
     path('', HomeView.as_view(), name='home_zh'),
     path('settings/', SettingsView.as_view(), name='settings'),
     path('accounts/', include('allauth.urls')),
+    path('quiz/', include('quiz.urls')),
     # require login or redirect to login page
     # path('accounts/profile/', TemplateView.as_view(template_name="profile.html"), name='profile'),
     prefix_default_language=False,
 )
 
 if settings.DEBUG:
-  if "debug_toolbar" in settings.INSTALLED_APPS:
-      import debug_toolbar
-      urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+    if 'debug_toolbar' in settings.INSTALLED_APPS:
+        import debug_toolbar
+
+        urlpatterns = [path('__debug__/', include(debug_toolbar.urls))] + urlpatterns

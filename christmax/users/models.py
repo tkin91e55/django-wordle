@@ -65,21 +65,17 @@ class Profile(models.Model):
     """
     Extended user profile for game-specific data.
     Separated from User model for flexibility.
+    
+    Note: player_level and experience_points moved to quiz.UserStatistics
     """
 
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile', verbose_name=_('user')
     )
 
-    player_level = models.PositiveIntegerField(
-        _('player level'), default=1, help_text=_('Game progression level')
-    )
-
     display_name = models.CharField(
         _('display name'), max_length=20, blank=True, help_text=_('Name shown to other players')
     )
-
-    experience_points = models.PositiveIntegerField(_('experience points'), default=0)
 
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
     updated_at = models.DateTimeField(_('updated at'), auto_now=True)
