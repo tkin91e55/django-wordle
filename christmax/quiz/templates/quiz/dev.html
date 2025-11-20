@@ -3,15 +3,56 @@
 
 {% block title %}{% trans "Quiz Dev - Seeded Data" %}{% endblock %}
 
+{% block extra_css %}
+<!-- Prism.js for code highlighting (dev page only) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
 {% block content %}
 <div class="container py-5">
     <h1 class="mb-4">{% trans "Quiz Development - Seeded Data" %}</h1>
 
-    <p class="lead text-muted mb-5">
+    <p class="lead text-muted mb-4">
         {% trans "This page displays all seeded data with internationalization support." %}
         <br>
         {% trans "Current language" %}: <strong>{{ LANGUAGE_CODE }}</strong>
     </p>
+
+    <!-- Statistics Overview -->
+    <div class="row mb-5">
+        <div class="col-md-3">
+            <div class="card text-center bg-primary text-white">
+                <div class="card-body">
+                    <h2 class="mb-0">{{ categories.count }}</h2>
+                    <p class="mb-0">{% trans "Categories" %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-success text-white">
+                <div class="card-body">
+                    <h2 class="mb-0">{{ questions.count }}</h2>
+                    <p class="mb-0">{% trans "Questions" %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-warning text-dark">
+                <div class="card-body">
+                    <h2 class="mb-0">{{ trophies.count }}</h2>
+                    <p class="mb-0">{% trans "Trophies" %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center bg-info text-white">
+                <div class="card-body">
+                    <h2 class="mb-0">2</h2>
+                    <p class="mb-0">{% trans "Languages" %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Categories Section -->
     <section class="mb-5">
@@ -26,20 +67,17 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             {% if category.icon_class %}
-                            <i class="{{ category.icon_class }}"></i>
+                            <i class="{{ category.icon_class }} fa-2x text-primary"></i>
                             {% endif %}
-                            {{ category.get_name_display }}
+                            <span class="d-block mt-2">{{ category.get_name_display }}</span>
                         </h5>
                         <p class="card-text text-muted small">
-                            <strong>{% trans "Name Code" %}:</strong> {{ category.name }}<br>
-                            <strong>{% trans "Active" %}:</strong>
-                            {% if category.is_active %}
-                                <span class="badge bg-success">{% trans "Yes" %}</span>
-                            {% else %}
-                                <span class="badge bg-secondary">{% trans "No" %}</span>
+                            <strong>{% trans "Code" %}:</strong> <code>{{ category.name }}</code><br>
+                            {% if category.prism_language %}
+                            <strong>{% trans "Syntax" %}:</strong> <code>{{ category.prism_language }}</code><br>
                             {% endif %}
-                            <br>
-                            <strong>{% trans "Questions" %}:</strong> {{ category.questions.count }}
+                            <strong>{% trans "Icon" %}:</strong> <code>{{ category.icon_class }}</code><br>
+                            <strong>{% trans "Questions" %}:</strong> <span class="badge bg-primary">{{ category.questions.count }}</span>
                         </p>
                         {% if category.description %}
                         <p class="card-text">{{ category.description }}</p>
@@ -98,34 +136,67 @@
                      aria-labelledby="heading{{ question.id }}"
                      data-bs-parent="#questionsAccordion">
                     <div class="accordion-body">
+                        <!-- Bilingual Question Text -->
                         <div class="mb-3">
                             <h6>{% trans "Question Text" %}:</h6>
-                            <p>{{ question.get_question_text }}</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="badge bg-primary mb-2">English</span>
+                                    <p>{{ question.get_question_text }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="badge bg-info mb-2">中文</span>
+                                    <p>{{ question.question_text.zh|default:"—" }}</p>
+                                </div>
+                            </div>
                         </div>
 
                         {% if question.code_snippet %}
                         <div class="mb-3">
                             <h6>{% trans "Code Snippet" %}:</h6>
-                            <pre class="bg-light p-3 rounded"><code>{{ question.code_snippet }}</code></pre>
+                            <pre class="bg-light p-3 rounded"><code class="language-{{ question.category.prism_language|default:"markup" }}">{{ question.code_snippet }}</code></pre>
                         </div>
                         {% endif %}
 
                         <div class="mb-3">
                             <h6>{% trans "Answer" %}:</h6>
-                            <p><code class="bg-success text-white px-2 py-1 rounded">{{ question.answer }}</code></p>
+                            <p>
+                                <code class="bg-success text-white px-3 py-2 rounded fs-5">{{ question.answer }}</code>
+                                <span class="text-muted ms-2">({{ question.answer|length }} characters)</span>
+                            </p>
                         </div>
 
+                        <!-- Bilingual Hint -->
                         {% if question.get_hint_text %}
                         <div class="mb-3">
                             <h6>{% trans "Hint" %}:</h6>
-                            <p class="text-muted">{{ question.get_hint_text }}</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="badge bg-warning text-dark mb-2">EN</span>
+                                    <p class="text-muted">{{ question.get_hint_text }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="badge bg-warning text-dark mb-2">中文</span>
+                                    <p class="text-muted">{{ question.hint_text.zh|default:"—" }}</p>
+                                </div>
+                            </div>
                         </div>
                         {% endif %}
 
+                        <!-- Bilingual Explanation -->
                         {% if question.get_explanation %}
                         <div class="mb-3">
                             <h6>{% trans "Explanation" %}:</h6>
-                            <p>{{ question.get_explanation }}</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="badge bg-secondary mb-2">EN</span>
+                                    <p>{{ question.get_explanation }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="badge bg-secondary mb-2">中文</span>
+                                    <p>{{ question.explanation.zh|default:"—" }}</p>
+                                </div>
+                            </div>
                         </div>
                         {% endif %}
 
@@ -220,4 +291,10 @@
     </section>
 
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Prism.js for code highlighting (dev page only) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 {% endblock %}
