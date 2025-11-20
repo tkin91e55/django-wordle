@@ -30,7 +30,16 @@ class Category(models.Model):
         _('icon class'),
         max_length=50,
         blank=True,
-        help_text=_('Bootstrap icon class, e.g., bi-code-slash'),
+        help_text=_('FontAwesome icon class, e.g., fa-brands fa-html5, fa-brands fa-python'),
+    )
+
+    prism_language = models.CharField(
+        _('prism language'),
+        max_length=20,
+        blank=True,
+        help_text=_(
+            'Prism.js language identifier for code highlighting, e.g., html, python, javascript'
+        ),
     )
 
     order = models.PositiveIntegerField(_('display order'), default=0)
@@ -201,7 +210,6 @@ class GameSession(models.Model):
             return 'ABANDONED'
         return 'IN_PROGRESS'
 
-
     # ============== METHODS ==============
 
     def complete(self):
@@ -209,6 +217,7 @@ class GameSession(models.Model):
         if not self.completed_at:
             self.completed_at = timezone.now()
             self.save()
+
 
 class Attempt(models.Model):
     """Individual answer attempt within a game session."""

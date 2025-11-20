@@ -32,7 +32,8 @@ sessions, attempts, user statistics, and trophies.
   - `RANDOM` - Random category
   - `CUSTOM` - Custom category
 - `description` (TextField, blank) - Category description
-- `icon_class` (CharField, blank) - Bootstrap icon class (e.g., `bi-code-slash`)
+- `icon_class` (CharField, blank) - FontAwesome icon class (e.g., `fa-brands fa-html5`, `fa-brands fa-python`)
+- `prism_language` (CharField, blank) - Prism.js language identifier for syntax highlighting (e.g., `html`, `python`, `javascript`)
 - `order` (PositiveIntegerField) - Display order (default: 0)
 
 **Meta:**
@@ -361,23 +362,38 @@ All 7 models are registered in Django admin with:
 
 ### Design Decisions
 
-1. **GameSession as Central Hub:** All game state is tracked through GameSession, simplifying the data model and making time tracking straightforward.
+1. **GameSession as Central Hub:** All game state is tracked through GameSession, simplifying the
+   data model and making time tracking straightforward.
 
-2. **Bilingual Content via JSONField:** Question content (question_text, hint_text, explanation) stored as JSONField with language keys (`{"en": "...", "zh": "..."}`). Allows per-question translations without schema changes. UI labels still use .po files for consistency with Django i18n conventions.
+2. **Category-Driven UI:** Category model includes `icon_class` (FontAwesome) and `prism_language`
+   fields to determine the icon displayed in the UI and the syntax highlighting language for code
+   snippets. This centralizes UI presentation logic at the category level.
 
-3. **Computed Status Property:** GameSession status is computed from timestamps (started_at, end_at, completed_at) and attempt results. No redundant status field stored in database. Single source of truth prevents data inconsistency and simplifies logic.
+3. **Bilingual Content via JSONField:** Question content (question_text, hint_text, explanation)
+   stored as JSONField with language keys (`{"en": "...", "zh": "..."}`). Allows per-question
+   translations without schema changes. UI labels still use .po files for consistency with Django
+   i18n conventions.
 
-4. **Simplified Attempt Model:** Attempt only links to GameSession (not directly to User/Question), reducing redundancy since this information is available via GameSession.
+4. **Computed Status Property:** GameSession status is computed from timestamps (started_at, end_at,
+   completed_at) and attempt results. No redundant status field stored in database. Single source of
+   truth prevents data inconsistency and simplifies logic.
 
-5. **No Wordle Feedback Yet:** The `feedback` field for color-coded Wordle responses is not implemented in Phase I. The `is_correct` boolean is sufficient for basic quiz functionality.
+5. **Simplified Attempt Model:** Attempt only links to GameSession (not directly to User/Question),
+   reducing redundancy since this information is available via GameSession.
 
-6. **Difficulty as Enum:** Using CharField with choices instead of a separate table keeps the model simple while still being easily extensible.
+6. **No Wordle Feedback Yet:** The `feedback` field for color-coded Wordle responses is not
+   implemented in Phase I. The `is_correct` boolean is sufficient for basic quiz functionality.
 
-7. **Profile Migration:** Moving `player_level` and `experience_points` to `UserStatistics` separates game-specific data from general user profile data, following single responsibility principle.
+7. **Difficulty as Enum:** Using CharField with choices instead of a separate table keeps the model
+   simple while still being easily extensible.
 
-8. **Simplified Trophy System:** Removed `requirement_value`, `xp_reward`, `icon`, `is_active`, `order` fields for Phase I. Trophies managed via fixtures. Unlock logic implemented in application code, not model constraints. Keeps model lean and flexible.
+8. **Profile Migration:** Moving `player_level` and `experience_points` to `UserStatistics`
+   separates game-specific data from general user profile data, following single responsibility
+   principle.
 
-9. **Statistics Calculated On-Demand:** UserStatistics only stores level and XP. Detailed stats (streaks, accuracy, hints, attempt counts) can be calculated from GameSession/Attempt records when needed, avoiding premature optimization and complex update logic.
+9. **Statistics Calculated On-Demand:** UserStatistics only stores level and XP. Detailed stats
+    (streaks, accuracy, hints, attempt counts) can be calculated from GameSession/Attempt records
+    when needed, avoiding premature optimization and complex update logic.
 
 ### Performance Considerations
 
