@@ -1,0 +1,272 @@
+/**
+ * Prism Adaptive Theme
+ * Automatically adapts to Bootstrap's data-bs-theme (light/dark)
+ * Uses CSS custom properties that respond to theme changes
+ */
+
+/* ============================================================================
+   CSS Variables for Light and Dark Themes
+   ============================================================================ */
+
+:root[data-bs-theme="light"] {
+  --prism-bg: #f5f5f5;
+  --prism-text: #24292e;
+  --prism-comment: #6a737d;
+  --prism-keyword: #d73a49;
+  --prism-string: #032f62;
+  --prism-function: #6f42c1;
+  --prism-number: #005cc5;
+  --prism-operator: #d73a49;
+  --prism-punctuation: #24292e;
+  --prism-class: #6f42c1;
+  --prism-tag: #22863a;
+  --prism-attr-name: #6f42c1;
+  --prism-attr-value: #032f62;
+  --prism-selector: #6f42c1;
+  --prism-property: #005cc5;
+  --prism-builtin: #005cc5;
+  --prism-regex: #032f62;
+  --prism-important: #d73a49;
+  --prism-deleted: #b31d28;
+  --prism-inserted: #22863a;
+  --prism-border: #d1d5da;
+}
+
+:root[data-bs-theme="dark"] {
+  --prism-bg: #2d2d2d;
+  --prism-text: #ccc;
+  --prism-comment: #999;
+  --prism-keyword: #cc99cd;
+  --prism-string: #7ec699;
+  --prism-function: #f8c555;
+  --prism-number: #f08d49;
+  --prism-operator: #67cdcc;
+  --prism-punctuation: #ccc;
+  --prism-class: #f8c555;
+  --prism-tag: #e2777a;
+  --prism-attr-name: #cc99cd;
+  --prism-attr-value: #7ec699;
+  --prism-selector: #cc99cd;
+  --prism-property: #f08d49;
+  --prism-builtin: #f8c555;
+  --prism-regex: #7ec699;
+  --prism-important: #cc99cd;
+  --prism-deleted: #e2777a;
+  --prism-inserted: #7ec699;
+  --prism-border: #444;
+}
+
+/* ============================================================================
+   Base Prism Styles
+   ============================================================================ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--prism-text);
+  background: none;
+  text-shadow: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+  background: var(--prism-bg);
+  border: 1px solid var(--prism-border);
+  border-radius: 0.375rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  white-space: normal;
+  background: var(--prism-bg);
+  border: 1px solid var(--prism-border);
+}
+
+/* ============================================================================
+   Token Styles
+   ============================================================================ */
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--prism-comment);
+  font-style: italic;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.constant,
+.token.symbol {
+  color: var(--prism-property);
+}
+
+.token.tag,
+.token.boolean,
+.token.number {
+  color: var(--prism-number);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: var(--prism-string);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: var(--prism-operator);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: var(--prism-function);
+}
+
+.token.keyword {
+  color: var(--prism-keyword);
+  font-weight: 600;
+}
+
+.token.regex,
+.token.important {
+  color: var(--prism-regex);
+  font-weight: bold;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Python-specific */
+.token.decorator,
+.token.annotation {
+  color: var(--prism-attr-name);
+}
+
+/* JavaScript/TypeScript-specific */
+.token.template-string .token.string {
+  color: var(--prism-string);
+}
+
+/* HTML/XML-specific */
+.token.tag .token.tag {
+  color: var(--prism-tag);
+}
+
+.token.tag .token.attr-name {
+  color: var(--prism-attr-name);
+}
+
+.token.tag .token.attr-value {
+  color: var(--prism-attr-value);
+}
+
+.token.tag .token.punctuation {
+  color: var(--prism-punctuation);
+}
+
+/* CSS-specific */
+.token.selector {
+  color: var(--prism-selector);
+}
+
+.token.property {
+  color: var(--prism-property);
+}
+
+/* Diff highlighting */
+.token.deleted {
+  color: var(--prism-deleted);
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.token.inserted {
+  color: var(--prism-inserted);
+  background: rgba(0, 255, 0, 0.1);
+}
+
+/* ============================================================================
+   Line Highlighting
+   ============================================================================ */
+
+pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid var(--prism-border);
+  user-select: none;
+}
+
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: var(--prism-comment);
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+
+/* ============================================================================
+   Smooth Transitions
+   ============================================================================ */
+
+code[class*="language-"],
+pre[class*="language-"],
+.token {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}

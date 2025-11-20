@@ -1,11 +1,11 @@
 {% extends 'quiz/base_quiz.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}{% trans "Quiz Dev - Seeded Data" %}{% endblock %}
 
 {% block extra_css %}
-<!-- Prism.js for code highlighting (dev page only) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Prism.js adaptive theme (automatically switches with Bootstrap theme) -->
+<link rel="stylesheet" href="{% static 'css/prism-adaptive.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -154,7 +154,7 @@
                         {% if question.code_snippet %}
                         <div class="mb-3">
                             <h6>{% trans "Code Snippet" %}:</h6>
-                            <pre class="bg-light p-3 rounded"><code class="language-{{ question.category.prism_language|default:"markup" }}">{{ question.code_snippet }}</code></pre>
+                            <pre><code class="language-{{ question.category.prism_language|default:"markup" }}">{{ question.code_snippet }}</code></pre>
                         </div>
                         {% endif %}
 
