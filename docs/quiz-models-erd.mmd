@@ -16,18 +16,19 @@ erDiagram
     
     Category {
         bigint id PK
-        varchar name UK "unique"
-        text description
-        varchar icon_class "Bootstrap-icon"
-        int order
+        varchar name UK "enum:CategoryChoices"
+        json description "bilingual"
+        varchar icon_class "FontAwesome"
+        int order "PositiveIntegerField"
     }
     
     Question {
         bigint id PK
         bigint category_id FK
-        varchar difficulty "enum"
+        varchar difficulty "enum:DifficultyLevel"
         json question_text "bilingual"
         text code_snippet
+        varchar prism_language "syntax-highlight"
         varchar answer
         json hint_text "bilingual"
         json explanation "bilingual"
@@ -49,7 +50,7 @@ erDiagram
     Attempt {
         bigint id PK
         bigint game_session_id FK
-        int attempt_number "1-6"
+        int attempt_number "1-6:PositiveIntegerField"
         varchar user_answer
         boolean is_correct
         datetime attempted_at
@@ -58,8 +59,8 @@ erDiagram
     UserStatistics {
         bigint id PK
         bigint user_id FK "OneToOne"
-        int player_level
-        int experience_points
+        int player_level "PositiveIntegerField"
+        int experience_points "PositiveIntegerField"
         datetime created_at
         datetime updated_at
     }
@@ -67,9 +68,9 @@ erDiagram
     Trophy {
         bigint id PK
         varchar code UK "unique"
-        varchar requirement_type "enum"
-        varchar name
-        text description
+        varchar requirement_type "enum:RequirementType"
+        json name "bilingual"
+        json description "bilingual"
     }
     
     UserTrophy {
