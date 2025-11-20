@@ -18,25 +18,31 @@ Located in: `christmax/base/locale/<lang>/LC_MESSAGES/`
    - Edited by: Developers
    - ~5 translations
 
-2. **`app.po`** (Custom Project)
-   - Custom project-specific translations
+2. **`app.po`** (Custom Project - Base)
+   - Custom project-specific translations from base app
    - Generated from: `{% trans %}` tags in templates, `gettext()` in Python code
    - Edited by: Translators
    - ~149 translations
 
-3. **`allauth.po`** (Django-allauth)
+3. **`quiz.po`** (Custom Project - Quiz App)
+   - Quiz-specific translations
+   - Generated from: Quiz app templates and Python code
+   - Edited by: Translators
+   - Includes: Category names, difficulty levels, UI text
+
+4. **`allauth.po`** (Django-allauth)
    - Django-allauth framework translations
    - Source: Copied from `django-allauth` package (`zh_Hant` locale)
    - Updated when: Upgrading django-allauth
    - ~370 translations
 
-4. **`django-core.po`** (Django Core, Lowest Priority)
+5. **`django-core.po`** (Django Core, Lowest Priority)
    - Django framework core translations
    - Source: Copied from Django package (`zh_Hant` locale)
    - Updated when: Upgrading Django
    - ~349 translations
 
-5. **`djangojs.po`** (JavaScript)
+6. **`djangojs.po`** (JavaScript)
    - JavaScript translation strings (separate domain)
    - Generated from: `gettext()` calls in `.js` files
    - Edited by: Translators
@@ -152,7 +158,7 @@ poetry run python manage.py compile_translations --show-files
 
 ### How It Works
 
-1. Reads source files in priority order (manual → app → allauth → django-core)
+1. Reads source files in priority order (manual → app → quiz → allauth → django-core)
 2. Merges using `msgcat --use-first` (first occurrence wins)
 3. Compiles merged `django.po` to `django.mo` using `msgfmt`
 4. Also compiles `djangojs.po` to `djangojs.mo` if present
@@ -167,7 +173,8 @@ christmax/
 │   │   ├── zh/                                # Chinese (Traditional)
 │   │   │   └── LC_MESSAGES/
 │   │   │       ├── manual.po               ✓  # [SOURCE] Manual overrides
-│   │   │       ├── app.po                  ✓  # [SOURCE] Custom translations
+│   │   │       ├── app.po                  ✓  # [SOURCE] Custom translations (base)
+│   │   │       ├── quiz.po                 ✓  # [SOURCE] Quiz app translations
 │   │   │       ├── allauth.po              ✓  # [SOURCE] Allauth translations
 │   │   │       ├── django-core.po          ✓  # [SOURCE] Django core
 │   │   │       ├── djangojs.po             ✓  # [SOURCE] JavaScript
