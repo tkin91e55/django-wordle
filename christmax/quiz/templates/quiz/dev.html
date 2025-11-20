@@ -73,14 +73,11 @@
                         </h5>
                         <p class="card-text text-muted small">
                             <strong>{% trans "Code" %}:</strong> <code>{{ category.name }}</code><br>
-                            {% if category.prism_language %}
-                            <strong>{% trans "Syntax" %}:</strong> <code>{{ category.prism_language }}</code><br>
-                            {% endif %}
                             <strong>{% trans "Icon" %}:</strong> <code>{{ category.icon_class }}</code><br>
                             <strong>{% trans "Questions" %}:</strong> <span class="badge bg-primary">{{ category.questions.count }}</span>
                         </p>
                         {% if category.description %}
-                        <p class="card-text">{{ category.description }}</p>
+                        <p class="card-text">{{ category.get_description }}</p>
                         {% endif %}
                     </div>
                 </div>
@@ -136,25 +133,16 @@
                      aria-labelledby="heading{{ question.id }}"
                      data-bs-parent="#questionsAccordion">
                     <div class="accordion-body">
-                        <!-- Bilingual Question Text -->
+                        <!-- Question Text -->
                         <div class="mb-3">
                             <h6>{% trans "Question Text" %}:</h6>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <span class="badge bg-primary mb-2">English</span>
-                                    <p>{{ question.get_question_text }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <span class="badge bg-info mb-2">中文</span>
-                                    <p>{{ question.question_text.zh|default:"—" }}</p>
-                                </div>
-                            </div>
+                            <p>{{ question.get_question_text }}</p>
                         </div>
 
                         {% if question.code_snippet %}
                         <div class="mb-3">
                             <h6>{% trans "Code Snippet" %}:</h6>
-                            <pre><code class="language-{{ question.category.prism_language|default:"markup" }}">{{ question.code_snippet }}</code></pre>
+                            <pre><code class="language-{{ question.prism_language|default:"markup" }}">{{ question.code_snippet }}</code></pre>
                         </div>
                         {% endif %}
 
@@ -166,37 +154,19 @@
                             </p>
                         </div>
 
-                        <!-- Bilingual Hint -->
+                        <!-- Hint -->
                         {% if question.get_hint_text %}
                         <div class="mb-3">
                             <h6>{% trans "Hint" %}:</h6>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <span class="badge bg-warning text-dark mb-2">EN</span>
-                                    <p class="text-muted">{{ question.get_hint_text }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <span class="badge bg-warning text-dark mb-2">中文</span>
-                                    <p class="text-muted">{{ question.hint_text.zh|default:"—" }}</p>
-                                </div>
-                            </div>
+                            <p class="text-muted">{{ question.get_hint_text }}</p>
                         </div>
                         {% endif %}
 
-                        <!-- Bilingual Explanation -->
+                        <!-- Explanation -->
                         {% if question.get_explanation %}
                         <div class="mb-3">
                             <h6>{% trans "Explanation" %}:</h6>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <span class="badge bg-secondary mb-2">EN</span>
-                                    <p>{{ question.get_explanation }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <span class="badge bg-secondary mb-2">中文</span>
-                                    <p>{{ question.explanation.zh|default:"—" }}</p>
-                                </div>
-                            </div>
+                            <p>{{ question.get_explanation }}</p>
                         </div>
                         {% endif %}
 
@@ -205,6 +175,9 @@
                             <div class="col-md-6">
                                 <strong>{% trans "Category" %}:</strong> {{ question.category.get_name_display }}<br>
                                 <strong>{% trans "Difficulty" %}:</strong> {{ question.get_difficulty_display }}<br>
+                                {% if question.prism_language %}
+                                <strong>{% trans "Syntax Highlighting" %}:</strong> <code>{{ question.prism_language }}</code><br>
+                                {% endif %}
                                 <strong>{% trans "Active" %}:</strong>
                                 {% if question.is_active %}
                                     <span class="badge bg-success">{% trans "Yes" %}</span>
@@ -259,10 +232,14 @@
                     <div class="card-body">
                         <div class="d-flex align-items-start">
                             <div class="flex-grow-1">
-                                <h5 class="card-title">{{ trophy.name }}</h5>
-                                <p class="card-text">{{ trophy.description }}</p>
+                                <h5 class="card-title">
+                                    <i class="bi bi-trophy-fill text-warning"></i>
+                                    {{ trophy.get_name }}
+                                </h5>
+                                <p class="card-text">{{ trophy.get_description }}</p>
                                 <div class="small text-muted">
-                                    <strong>{% trans "Requirement" %}:</strong>
+                                    <strong>{% trans "Code" %}:</strong> <code>{{ trophy.code }}</code><br>
+                                    <strong>{% trans "Requirement" %}:</strong> <span class="badge bg-info">{{ trophy.get_requirement_type_display }}</span>
                                 </div>
                             </div>
                         </div>

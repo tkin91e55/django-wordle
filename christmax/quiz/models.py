@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, get_language
 from django.utils import timezone
 
 
@@ -24,22 +24,18 @@ class Category(models.Model):
         _('category name'), max_length=20, choices=CategoryChoices.choices, unique=True
     )
 
-    description = models.TextField(_('description'), blank=True)
+    description = models.JSONField(
+        _('description'),
+        default=dict,
+        blank=True,
+        help_text=_('Category description in multiple languages: {"en": "...", "zh": "..."}'),
+    )
 
     icon_class = models.CharField(
         _('icon class'),
         max_length=50,
         blank=True,
         help_text=_('FontAwesome icon class, e.g., fa-brands fa-html5, fa-brands fa-python'),
-    )
-
-    prism_language = models.CharField(
-        _('prism language'),
-        max_length=20,
-        blank=True,
-        help_text=_(
-            'Prism.js language identifier for code highlighting, e.g., html, python, javascript'
-        ),
     )
 
     order = models.PositiveIntegerField(_('display order'), default=0)
@@ -52,6 +48,23 @@ class Category(models.Model):
 
     def __str__(self):
         return self.get_name_display()  # type: ignore[attr-defined]
+
+    def get_description(self, language=None):
+        """Get category description in specified language or auto-detect from current language.
+
+        Args:
+            language: Language code ('en', 'zh', etc.). If None, auto-detects from Django's current language.
+
+        Returns:
+            Category description string, falls back to English if language not found.
+        """
+        if language is None:
+            language = get_language()
+            language = language.split('-')[0] if language else 'en'
+
+        if isinstance(self.description, dict):
+            return self.description.get(language, self.description.get('en', ''))
+        return str(self.description) if self.description else ''
 
 
 class Question(models.Model):
@@ -84,6 +97,13 @@ class Question(models.Model):
         _('code snippet'),
         blank=True,
         help_text=_('Optional code snippet to show with the question'),
+    )
+
+    prism_language = models.CharField(
+        _('prism language'),
+        max_length=20,
+        blank=True,
+        help_text=_('Prism.js language for code highlighting: html, python, javascript, css, etc.'),
     )
 
     answer = models.CharField(
@@ -124,20 +144,54 @@ class Question(models.Model):
         question = self.get_question_text('en')
         return f'{self.get_difficulty_display()} - {question[:50]}'  # type: ignore[attr-defined]
 
-    def get_question_text(self, language='en'):
-        """Get question text in specified language."""
+    def get_question_text(self, language=None):
+        """Get question text in specified language or auto-detect from current language.
+
+        Args:
+            language: Language code ('en', 'zh', etc.). If None, auto-detects from Django's current language.
+
+        Returns:
+            Question text string, falls back to English if language not found.
+        """
+        if language is None:
+            language = get_language()
+            # Convert 'zh-hant' to 'zh', 'en-us' to 'en', etc.
+            language = language.split('-')[0] if language else 'en'
+
         if isinstance(self.question_text, dict):
             return self.question_text.get(language, self.question_text.get('en', ''))
         return str(self.question_text)  # Fallback for non-dict data
 
-    def get_hint_text(self, language='en'):
-        """Get hint text in specified language."""
+    def get_hint_text(self, language=None):
+        """Get hint text in specified language or auto-detect from current language.
+
+        Args:
+            language: Language code ('en', 'zh', etc.). If None, auto-detects from Django's current language.
+
+        Returns:
+            Hint text string, falls back to English if language not found.
+        """
+        if language is None:
+            language = get_language()
+            language = language.split('-')[0] if language else 'en'
+
         if isinstance(self.hint_text, dict):
             return self.hint_text.get(language, self.hint_text.get('en', ''))
         return str(self.hint_text) if self.hint_text else ''
 
-    def get_explanation(self, language='en'):
-        """Get explanation in specified language."""
+    def get_explanation(self, language=None):
+        """Get explanation in specified language or auto-detect from current language.
+
+        Args:
+            language: Language code ('en', 'zh', etc.). If None, auto-detects from Django's current language.
+
+        Returns:
+            Explanation string, falls back to English if language not found.
+        """
+        if language is None:
+            language = get_language()
+            language = language.split('-')[0] if language else 'en'
+
         if isinstance(self.explanation, dict):
             return self.explanation.get(language, self.explanation.get('en', ''))
         return str(self.explanation) if self.explanation else ''
@@ -303,9 +357,16 @@ class Trophy(models.Model):
         default=RequirementType.LEVEL,
     )
 
-    name = models.CharField(_('trophy name'), max_length=100)
+    name = models.JSONField(
+        _('trophy name'), help_text=_('Bilingual trophy name: {"en": "English", "zh": "中文"}')
+    )
 
-    description = models.TextField(_('description'), help_text=_('How to unlock this trophy'))
+    description = models.JSONField(
+        _('description'),
+        help_text=_(
+            'Bilingual description: {"en": "English", "zh": "中文"}. How to unlock this trophy'
+        ),
+    )
 
     class Meta:
         verbose_name = _('trophy')
@@ -313,8 +374,38 @@ class Trophy(models.Model):
         ordering = ['name']
         db_table = 'quiz_trophy'
 
+    def get_name(self, language=None):
+        """Get trophy name in specified language or auto-detect from current language.
+
+        Args:
+            language: Language code ('en', 'zh', etc.). If None, auto-detects from Django's current language.
+
+        Returns:
+            Trophy name string, falls back to English if language not found.
+        """
+        if language is None:
+            language = get_language()
+            language = language.split('-')[0] if language else 'en'
+
+        return self.name.get(language, self.name.get('en', ''))
+
+    def get_description(self, language=None):
+        """Get trophy description in specified language or auto-detect from current language.
+
+        Args:
+            language: Language code ('en', 'zh', etc.). If None, auto-detects from Django's current language.
+
+        Returns:
+            Trophy description string, falls back to English if language not found.
+        """
+        if language is None:
+            language = get_language()
+            language = language.split('-')[0] if language else 'en'
+
+        return self.description.get(language, self.description.get('en', ''))
+
     def __str__(self):
-        return self.name
+        return self.get_name('en')
 
 
 class UserTrophy(models.Model):

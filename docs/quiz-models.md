@@ -33,7 +33,6 @@ sessions, attempts, user statistics, and trophies.
   - `CUSTOM` - Custom category
 - `description` (TextField, blank) - Category description
 - `icon_class` (CharField, blank) - FontAwesome icon class (e.g., `fa-brands fa-html5`, `fa-brands fa-python`)
-- `prism_language` (CharField, blank) - Prism.js language identifier for syntax highlighting (e.g., `html`, `python`, `javascript`)
 - `order` (PositiveIntegerField) - Display order (default: 0)
 
 **Meta:**
@@ -62,6 +61,7 @@ sessions, attempts, user statistics, and trophies.
   - `EXPERT` - Expert level
 - `question_text` (JSONField) - Bilingual question text: `{"en": "...", "zh": "..."}`
 - `code_snippet` (TextField, blank) - Optional code snippet
+- `prism_language` (CharField, blank) - Prism.js language for syntax highlighting (e.g., `html`, `python`, `javascript`, `css`)
 - `answer` (CharField, max 100) - Correct answer (case-insensitive)
 - `hint_text` (JSONField, blank) - Bilingual hint: `{"en": "...", "zh": "..."}`
 - `explanation` (JSONField, blank) - Bilingual explanation: `{"en": "...", "zh": "..."}`
@@ -208,20 +208,25 @@ sessions, attempts, user statistics, and trophies.
 - `requirement_type` (CharField) - Type of requirement:
   - `LEVEL` - Based on player level
   - `CATEGORY_MASTER` - Based on category mastery
-- `name` (CharField, max 100) - Trophy name
-- `description` (TextField) - How to unlock this trophy
+- `name` (JSONField) - Bilingual trophy name `{"en": "English", "zh": "中文"}`
+- `description` (JSONField) - Bilingual description `{"en": "English", "zh": "中文"}` - How to unlock this trophy
 
 **Removed Fields:** `icon`, `requirement_value`, `xp_reward`, `is_active`, `order`, `created_at`
 
 **Meta:**
 - Ordering: `['name']`
 
+**Methods:**
+- `get_name(language='en')` - Get trophy name in specified language (en/zh), falls back to English
+- `get_description(language='en')` - Get trophy description in specified language (en/zh), falls back to English
+- `__str__()` - Returns English name via `get_name('en')`
+
 **Admin Features:**
 - List display: name, code, requirement_type
 - Search: name, code, description
 - Ordering: by name
 
-**Design Note:** Trophy model simplified for Phase I MVP. Trophies managed via fixtures. Unlock logic implemented in application code rather than model constraints. Future phases may reintroduce `requirement_value`, `xp_reward`, and `order` fields.
+**Design Note:** Trophy model simplified for Phase I MVP. Trophies managed via fixtures. Unlock logic implemented in application code rather than model constraints. Future phases may reintroduce `requirement_value`, `xp_reward`, and `order` fields. Bilingual support added to `name` and `description` fields using JSONField.
 
 ---
 
@@ -365,33 +370,38 @@ All 7 models are registered in Django admin with:
 1. **GameSession as Central Hub:** All game state is tracked through GameSession, simplifying the
    data model and making time tracking straightforward.
 
-2. **Category-Driven UI:** Category model includes `icon_class` (FontAwesome) and `prism_language`
-   fields to determine the icon displayed in the UI and the syntax highlighting language for code
-   snippets. This centralizes UI presentation logic at the category level.
+2. **Category-Driven UI:** Category model includes `icon_class` (FontAwesome) to determine the icon
+   displayed in the UI. Originally, `prism_language` was at category level, but moved to Question
+   model (see Decision #3) to support mixed-language categories like RANDOM and CUSTOM.
 
-3. **Bilingual Content via JSONField:** Question content (question_text, hint_text, explanation)
-   stored as JSONField with language keys (`{"en": "...", "zh": "..."}`). Allows per-question
-   translations without schema changes. UI labels still use .po files for consistency with Django
-   i18n conventions.
+3. **Per-Question Syntax Highlighting:** Question model includes `prism_language` field to specify
+   Prism.js language identifier per question (html, python, javascript, css, etc.). Critical for
+   RANDOM and CUSTOM categories which mix questions from different programming languages. Each
+   question knows its own syntax highlighting needs regardless of category.
 
-4. **Computed Status Property:** GameSession status is computed from timestamps (started_at, end_at,
+4. **Bilingual Content via JSONField:** Question content (question_text, hint_text, explanation) and
+   Trophy content (name, description) stored as JSONField with language keys (`{"en": "...", "zh":
+   "..."}`). Allows per-item translations without schema changes. UI labels still use .po files for
+   consistency with Django i18n conventions.
+
+5. **Computed Status Property:** GameSession status is computed from timestamps (started_at, end_at,
    completed_at) and attempt results. No redundant status field stored in database. Single source of
    truth prevents data inconsistency and simplifies logic.
 
-5. **Simplified Attempt Model:** Attempt only links to GameSession (not directly to User/Question),
+6. **Simplified Attempt Model:** Attempt only links to GameSession (not directly to User/Question),
    reducing redundancy since this information is available via GameSession.
 
-6. **No Wordle Feedback Yet:** The `feedback` field for color-coded Wordle responses is not
+7. **No Wordle Feedback Yet:** The `feedback` field for color-coded Wordle responses is not
    implemented in Phase I. The `is_correct` boolean is sufficient for basic quiz functionality.
 
-7. **Difficulty as Enum:** Using CharField with choices instead of a separate table keeps the model
+8. **Difficulty as Enum:** Using CharField with choices instead of a separate table keeps the model
    simple while still being easily extensible.
 
-8. **Profile Migration:** Moving `player_level` and `experience_points` to `UserStatistics`
+9. **Profile Migration:** Moving `player_level` and `experience_points` to `UserStatistics`
    separates game-specific data from general user profile data, following single responsibility
    principle.
 
-9. **Statistics Calculated On-Demand:** UserStatistics only stores level and XP. Detailed stats
+10. **Statistics Calculated On-Demand:** UserStatistics only stores level and XP. Detailed stats
     (streaks, accuracy, hints, attempt counts) can be calculated from GameSession/Attempt records
     when needed, avoiding premature optimization and complex update logic.
 

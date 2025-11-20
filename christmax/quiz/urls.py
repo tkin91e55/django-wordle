@@ -7,5 +7,11 @@ from . import views
 app_name = 'quiz'
 
 urlpatterns = [
-    path('dev/', views.QuizDevView.as_view(), name='dev'),
 ]
+
+from django.conf import settings
+
+if settings.DEBUG:
+    urlpatterns += [
+        path('dev/', views.QuizDevView.as_view(), name='dev'),
+    ]

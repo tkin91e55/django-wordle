@@ -40,44 +40,41 @@ class Command(BaseCommand):
         categories = [
             {
                 'name': 'HTML',
-                'description': 'HTML markup and semantic web',
+                'description': {
+                    'en': 'HTML markup and semantic web',
+                    'zh': 'HTML 標記語言與語意網路',
+                },
                 'icon_class': 'fa-brands fa-html5',
-                'prism_language': 'html',
                 'order': 1,
             },
             {
                 'name': 'PYTHON',
-                'description': 'Python programming language',
+                'description': {'en': 'Python programming language', 'zh': 'Python 程式語言'},
                 'icon_class': 'fa-brands fa-python',
-                'prism_language': 'python',
                 'order': 2,
             },
             {
                 'name': 'DJANGO',
-                'description': 'Django web framework',
+                'description': {'en': 'Django web framework', 'zh': 'Django 網頁框架'},
                 'icon_class': 'fa-solid fa-d',
-                'prism_language': 'python',
                 'order': 3,
             },
             {
                 'name': 'JS',
-                'description': 'JavaScript programming',
+                'description': {'en': 'JavaScript programming', 'zh': 'JavaScript 程式設計'},
                 'icon_class': 'fa-brands fa-js',
-                'prism_language': 'javascript',
                 'order': 4,
             },
             {
                 'name': 'CSS',
-                'description': 'Cascading Style Sheets',
+                'description': {'en': 'Cascading Style Sheets', 'zh': '層疊樣式表'},
                 'icon_class': 'fa-brands fa-css3-alt',
-                'prism_language': 'css',
                 'order': 5,
             },
             {
                 'name': 'RANDOM',
-                'description': 'Mixed programming topics',
+                'description': {'en': 'Mixed programming topics', 'zh': '混合程式主題'},
                 'icon_class': 'fa-solid fa-shuffle',
-                'prism_language': '',
                 'order': 6,
             },
         ]
@@ -88,7 +85,6 @@ class Command(BaseCommand):
                 defaults={
                     'description': cat_data['description'],
                     'icon_class': cat_data['icon_class'],
-                    'prism_language': cat_data['prism_language'],
                     'order': cat_data['order'],
                 },
             )
@@ -109,6 +105,7 @@ class Command(BaseCommand):
                     'zh': '哪個 HTML 標籤用於段落？',
                 },
                 'code_snippet': '<p>This is a paragraph</p>',
+                'prism_language': 'html',
                 'answer': 'p',
                 'hint_text': {'en': 'Short for "paragraph"', 'zh': '「段落」的縮寫'},
                 'explanation': {
@@ -124,6 +121,7 @@ class Command(BaseCommand):
                     'zh': '哪個標籤創建超連結？',
                 },
                 'code_snippet': '<a href="https://example.com">Link</a>',
+                'prism_language': 'html',
                 'answer': 'a',
                 'hint_text': {'en': 'Short for "anchor"', 'zh': '「錨點」的縮寫'},
                 'explanation': {
@@ -140,6 +138,7 @@ class Command(BaseCommand):
                     'zh': '哪個屬性指定表單輸入類型？',
                 },
                 'code_snippet': '<input type="text" />',
+                'prism_language': 'html',
                 'answer': 'type',
                 'hint_text': {'en': 'Defines the kind of input field', 'zh': '定義輸入欄位的種類'},
                 'explanation': {
@@ -156,6 +155,7 @@ class Command(BaseCommand):
                     'zh': '哪個屬性使內容在瀏覽器中可編輯？',
                 },
                 'code_snippet': '<div contenteditable="true">Edit me</div>',
+                'prism_language': 'html',
                 'answer': 'contenteditable',
                 'hint_text': {
                     'en': 'Allows direct editing of element content',
@@ -175,6 +175,7 @@ class Command(BaseCommand):
                     'zh': '哪個關鍵字定義函數？',
                 },
                 'code_snippet': 'def greet():\n    print("Hello")',
+                'prism_language': 'python',
                 'answer': 'def',
                 'hint_text': {'en': 'Short for "define"', 'zh': '「定義」的縮寫'},
                 'explanation': {
@@ -190,6 +191,7 @@ class Command(BaseCommand):
                     'zh': '哪個函數將輸出列印到控制台？',
                 },
                 'code_snippet': 'print("Hello World")',
+                'prism_language': 'python',
                 'answer': 'print',
                 'hint_text': {'en': 'Used to display text', 'zh': '用於顯示文本'},
                 'explanation': {
@@ -206,6 +208,7 @@ class Command(BaseCommand):
                     'zh': '哪個方法將項目添加到列表？',
                 },
                 'code_snippet': 'my_list = [1, 2, 3]\nmy_list.append(4)',
+                'prism_language': 'python',
                 'answer': 'append',
                 'hint_text': {'en': 'Adds to the end of the list', 'zh': '添加到列表末尾'},
                 'explanation': {
@@ -222,6 +225,7 @@ class Command(BaseCommand):
                     'zh': '哪個關鍵字創建生成器函數？',
                 },
                 'code_snippet': 'def counter():\n    n = 0\n    while True:\n        yield n\n        n += 1',
+                'prism_language': 'python',
                 'answer': 'yield',
                 'hint_text': {'en': 'Produces values one at a time', 'zh': '一次產生一個值'},
                 'explanation': {
@@ -238,6 +242,7 @@ class Command(BaseCommand):
                     'zh': 'Django 模型繼承自哪個類？',
                 },
                 'code_snippet': 'class Post(models.Model):\n    title = models.CharField(max_length=200)',
+                'prism_language': 'python',
                 'answer': 'Model',
                 'hint_text': {'en': 'Base class in models module', 'zh': 'models 模組中的基類'},
                 'explanation': {
@@ -253,6 +258,7 @@ class Command(BaseCommand):
                     'zh': '哪個命令啟動開發伺服器？',
                 },
                 'code_snippet': 'python manage.py runserver',
+                'prism_language': 'python',
                 'answer': 'runserver',
                 'hint_text': {'en': 'Runs the local server', 'zh': '運行本地伺服器'},
                 'explanation': {
@@ -269,6 +275,7 @@ class Command(BaseCommand):
                     'zh': '哪個方法從資料庫檢索所有物件？',
                 },
                 'code_snippet': 'posts = Post.objects.all()',
+                'prism_language': 'python',
                 'answer': 'all',
                 'hint_text': {'en': 'Returns every record', 'zh': '返回每條記錄'},
                 'explanation': {
@@ -285,6 +292,7 @@ class Command(BaseCommand):
                     'zh': '哪個方法預先獲取相關物件以減少查詢？',
                 },
                 'code_snippet': 'posts = Post.objects.prefetch_related("comments")',
+                'prism_language': 'python',
                 'answer': 'prefetch_related',
                 'hint_text': {
                     'en': 'Optimizes related object fetching',
@@ -304,6 +312,7 @@ class Command(BaseCommand):
                     'zh': '哪個關鍵字聲明常量變數？',
                 },
                 'code_snippet': 'const PI = 3.14159;',
+                'prism_language': 'javascript',
                 'answer': 'const',
                 'hint_text': {'en': 'Cannot be reassigned', 'zh': '不能重新賦值'},
                 'explanation': {
@@ -319,6 +328,7 @@ class Command(BaseCommand):
                     'zh': '哪個函數顯示警告對話框？',
                 },
                 'code_snippet': 'alert("Hello!");',
+                'prism_language': 'javascript',
                 'answer': 'alert',
                 'hint_text': {'en': 'Shows a popup message', 'zh': '顯示彈出訊息'},
                 'explanation': {
@@ -335,6 +345,7 @@ class Command(BaseCommand):
                     'zh': '哪個方法將元素添加到陣列末尾？',
                 },
                 'code_snippet': 'arr.push(5);',
+                'prism_language': 'javascript',
                 'answer': 'push',
                 'hint_text': {'en': 'Pushes to the end', 'zh': '推送到末尾'},
                 'explanation': {
@@ -351,6 +362,7 @@ class Command(BaseCommand):
                     'zh': '哪個關鍵字等待 promise 解析？',
                 },
                 'code_snippet': 'const data = await fetch(url);',
+                'prism_language': 'javascript',
                 'answer': 'await',
                 'hint_text': {'en': 'Pauses execution until resolved', 'zh': '暫停執行直到解析'},
                 'explanation': {
@@ -367,6 +379,7 @@ class Command(BaseCommand):
                     'zh': '哪個屬性設定文字顏色？',
                 },
                 'code_snippet': '.text { color: blue; }',
+                'prism_language': 'css',
                 'answer': 'color',
                 'hint_text': {'en': 'Controls text color', 'zh': '控制文字顏色'},
                 'explanation': {
@@ -382,6 +395,7 @@ class Command(BaseCommand):
                     'zh': '哪個屬性控制字體大小？',
                 },
                 'code_snippet': 'p { font-size: 16px; }',
+                'prism_language': 'css',
                 'answer': 'font-size',
                 'hint_text': {'en': 'Sets the size of text', 'zh': '設定文字大小'},
                 'explanation': {
@@ -398,6 +412,7 @@ class Command(BaseCommand):
                     'zh': '哪個 display 值創建 flex 容器？',
                 },
                 'code_snippet': '.container { display: flex; }',
+                'prism_language': 'css',
                 'answer': 'flex',
                 'hint_text': {'en': 'Enables flexbox layout', 'zh': '啟用 flexbox 布局'},
                 'explanation': {
@@ -414,6 +429,7 @@ class Command(BaseCommand):
                     'zh': '哪個屬性創建網格布局？',
                 },
                 'code_snippet': '.grid { display: grid; }',
+                'prism_language': 'css',
                 'answer': 'grid',
                 'hint_text': {'en': 'Two-dimensional layout system', 'zh': '二維布局系統'},
                 'explanation': {
@@ -430,6 +446,7 @@ class Command(BaseCommand):
                     'zh': '哪個 HTTP 方法從伺服器檢索資料？',
                 },
                 'code_snippet': 'fetch("/api/data", { method: "GET" })',
+                'prism_language': 'javascript',
                 'answer': 'GET',
                 'hint_text': {'en': 'Used to get data', 'zh': '用於獲取資料'},
                 'explanation': {
@@ -445,6 +462,7 @@ class Command(BaseCommand):
                     'zh': '哪種格式常用於 API？',
                 },
                 'code_snippet': '{"name": "John", "age": 30}',
+                'prism_language': 'json',
                 'answer': 'JSON',
                 'hint_text': {'en': 'JavaScript Object Notation', 'zh': 'JavaScript 物件表示法'},
                 'explanation': {
@@ -460,6 +478,7 @@ class Command(BaseCommand):
                     'zh': '哪個協定保護 HTTP 通訊？',
                 },
                 'code_snippet': 'https://secure-site.com',
+                'prism_language': 'markup',
                 'answer': 'HTTPS',
                 'hint_text': {'en': 'Encrypted HTTP', 'zh': '加密的 HTTP'},
                 'explanation': {
@@ -478,6 +497,7 @@ class Command(BaseCommand):
                 question_text=q_data['question_text'],
                 defaults={
                     'code_snippet': q_data.get('code_snippet', ''),
+                    'prism_language': q_data.get('prism_language', ''),
                     'hint_text': q_data.get('hint_text', {}),
                     'explanation': q_data.get('explanation', {}),
                 },
@@ -494,94 +514,121 @@ class Command(BaseCommand):
             {
                 'code': 'LEVEL_5',
                 'requirement_type': 'LEVEL',
-                'name': 'Beginner Graduate',
-                'description': 'Reach player level 5',
+                'name': {'en': 'Beginner Graduate', 'zh': '新手畢業生'},
+                'description': {'en': 'Reach player level 5', 'zh': '達到玩家等級 5'},
             },
             {
                 'code': 'LEVEL_10',
                 'requirement_type': 'LEVEL',
-                'name': 'Rising Star',
-                'description': 'Reach player level 10',
+                'name': {'en': 'Rising Star', 'zh': '新星崛起'},
+                'description': {'en': 'Reach player level 10', 'zh': '達到玩家等級 10'},
             },
             {
                 'code': 'LEVEL_25',
                 'requirement_type': 'LEVEL',
-                'name': 'Expert Coder',
-                'description': 'Reach player level 25',
+                'name': {'en': 'Expert Coder', 'zh': '專家程式員'},
+                'description': {'en': 'Reach player level 25', 'zh': '達到玩家等級 25'},
             },
             {
                 'code': 'LEVEL_50',
                 'requirement_type': 'LEVEL',
-                'name': 'Master Developer',
-                'description': 'Reach player level 50',
+                'name': {'en': 'Master Developer', 'zh': '大師開發者'},
+                'description': {'en': 'Reach player level 50', 'zh': '達到玩家等級 50'},
             },
             {
                 'code': 'LEVEL_100',
                 'requirement_type': 'LEVEL',
-                'name': 'Coding Legend',
-                'description': 'Reach player level 100',
+                'name': {'en': 'Coding Legend', 'zh': '編碼傳奇'},
+                'description': {'en': 'Reach player level 100', 'zh': '達到玩家等級 100'},
             },
             # Category mastery
             {
                 'code': 'HTML_MASTER',
                 'requirement_type': 'CATEGORY_MASTER',
-                'name': 'HTML Master',
-                'description': 'Complete 50 HTML questions correctly',
+                'name': {'en': 'HTML Master', 'zh': 'HTML 大師'},
+                'description': {
+                    'en': 'Complete 50 HTML questions correctly',
+                    'zh': '正確完成 50 道 HTML 題目',
+                },
             },
             {
                 'code': 'PYTHON_MASTER',
                 'requirement_type': 'CATEGORY_MASTER',
-                'name': 'Python Master',
-                'description': 'Complete 50 Python questions correctly',
+                'name': {'en': 'Python Master', 'zh': 'Python 大師'},
+                'description': {
+                    'en': 'Complete 50 Python questions correctly',
+                    'zh': '正確完成 50 道 Python 題目',
+                },
             },
             {
                 'code': 'DJANGO_MASTER',
                 'requirement_type': 'CATEGORY_MASTER',
-                'name': 'Django Master',
-                'description': 'Complete 50 Django questions correctly',
+                'name': {'en': 'Django Master', 'zh': 'Django 大師'},
+                'description': {
+                    'en': 'Complete 50 Django questions correctly',
+                    'zh': '正確完成 50 道 Django 題目',
+                },
             },
             {
                 'code': 'JS_MASTER',
                 'requirement_type': 'CATEGORY_MASTER',
-                'name': 'JavaScript Master',
-                'description': 'Complete 50 JavaScript questions correctly',
+                'name': {'en': 'JavaScript Master', 'zh': 'JavaScript 大師'},
+                'description': {
+                    'en': 'Complete 50 JavaScript questions correctly',
+                    'zh': '正確完成 50 道 JavaScript 題目',
+                },
             },
             {
                 'code': 'CSS_MASTER',
                 'requirement_type': 'CATEGORY_MASTER',
-                'name': 'CSS Master',
-                'description': 'Complete 50 CSS questions correctly',
+                'name': {'en': 'CSS Master', 'zh': 'CSS 大師'},
+                'description': {
+                    'en': 'Complete 50 CSS questions correctly',
+                    'zh': '正確完成 50 道 CSS 題目',
+                },
             },
             # Special achievements
             {
                 'code': 'FIRST_WIN',
                 'requirement_type': 'LEVEL',
-                'name': 'First Victory',
-                'description': 'Win your first game',
+                'name': {'en': 'First Victory', 'zh': '首次勝利'},
+                'description': {'en': 'Win your first game', 'zh': '贏得你的第一場遊戲'},
             },
             {
                 'code': 'PERFECT_GAME',
                 'requirement_type': 'LEVEL',
-                'name': 'Perfect Game',
-                'description': 'Answer correctly on the first attempt',
+                'name': {'en': 'Perfect Game', 'zh': '完美遊戲'},
+                'description': {
+                    'en': 'Answer correctly on the first attempt',
+                    'zh': '第一次嘗試就答對',
+                },
             },
             {
                 'code': 'SPEED_DEMON',
                 'requirement_type': 'LEVEL',
-                'name': 'Speed Demon',
-                'description': 'Complete a game in under 30 seconds',
+                'name': {'en': 'Speed Demon', 'zh': '速度惡魔'},
+                'description': {
+                    'en': 'Complete a game in under 30 seconds',
+                    'zh': '在 30 秒內完成遊戲',
+                },
             },
             {
                 'code': 'POLYGLOT',
                 'requirement_type': 'CATEGORY_MASTER',
-                'name': 'Polyglot Programmer',
-                'description': 'Master all programming categories',
+                'name': {'en': 'Polyglot Programmer', 'zh': '多語言程式員'},
+                'description': {
+                    'en': 'Master all programming categories',
+                    'zh': '精通所有程式語言分類',
+                },
             },
             {
                 'code': 'NIGHT_OWL',
                 'requirement_type': 'LEVEL',
-                'name': 'Night Owl',
-                'description': 'Play 10 games between midnight and 6 AM',
+                'name': {'en': 'Night Owl', 'zh': '夜貓子'},
+                'description': {
+                    'en': 'Play 10 games between midnight and 6 AM',
+                    'zh': '在午夜至早上 6 點之間遊玩 10 場遊戲',
+                },
             },
         ]
 
